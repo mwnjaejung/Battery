@@ -24,7 +24,30 @@ class ABatteryCCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
 
+	// Collection Volume
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Power)
+	TSubobjectPtr<class USphereComponent> CollectionSphere;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Power)
+	float PowerLevel;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Power)
+	float SpeedFactor;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Power)
+	float BaseSpeed;
+
+	virtual void Tick(float DeltaSeconds) override;
+
+
 protected:
+
+	UFUNCTION(BlueprintCallable, Category=Power)
+	void CollectBatteries();
+
+	UFUNCTION(BlueprintImplementableEvent, Category=Power)
+	void PowerUp(float BatteryPower);
+
 
 	/** Called for forwards/backward input */
 	void MoveForward(float Value);
